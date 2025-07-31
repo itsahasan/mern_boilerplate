@@ -4,8 +4,10 @@ import mongoose from 'mongoose'
 
 //Routes import
 import userRoutes from './routes/user.route.js'
+import authRoutes from './routes/auth.route.js'
 
 const app = express()
+app.use(express.json())
 
 
 // Config env
@@ -25,6 +27,7 @@ mongoose.connect(process.env.MONGO_URI).then(()=>{
 
 //All Routes
 app.use("/api/user", userRoutes)
+app.use("/api/auth", authRoutes)
 
 
 

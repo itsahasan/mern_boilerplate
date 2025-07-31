@@ -2,6 +2,9 @@ import express from 'express'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 
+//Routes import
+import userRoutes from './routes/user.route.js'
+
 const app = express()
 
 
@@ -20,8 +23,8 @@ mongoose.connect(process.env.MONGO_URI).then(()=>{
 // Middlewares
 
 
-// Use Routes
-
+//All Routes
+app.use("/api/user", userRoutes)
 
 
 

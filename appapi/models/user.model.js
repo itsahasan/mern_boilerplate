@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
 {
-  username:{
+  name:{
     type: String,
     required : true,
     trim:true,
@@ -20,7 +20,19 @@ const userSchema = new mongoose.Schema(
     required: true,
     min: 6,
     max: 64
-  }
+  },
+  lastlogin:{
+    type: Date,
+    default: Date.now
+  },
+  isVarifide:{
+    type: Boolean,
+    default: false
+  },
+  resetPasswordToken: String,
+  resetPasswordExpiresAt: Date,
+  verificationToken: String,
+  verificationTokenExpiresAt: Date
 },
 { timestamps: true }
 )

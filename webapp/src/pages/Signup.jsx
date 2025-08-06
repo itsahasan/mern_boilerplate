@@ -32,7 +32,7 @@ const Signup = () => {
         setError(true);
         return;
       }
-      navigate('/sign-in');
+      //navigate('/sign-in');
     } catch (error) {
       setLoading(false);
       setError(true);
@@ -44,11 +44,11 @@ const Signup = () => {
       <h1 className='text-2xl font-semibold mb-2 text-center text-gray-800'>Sign Up</h1>
       <form onSubmit={handleSubmit} className="bg-white text-gray-500 max-w mx-4 md:p-6 p-4 text-left text-sm rounded-xl shadow- [0px_0px_10px_0px] shadow-black/10">   
 
-          <input id="username" className="w-full border my-3 border-gray-500/30 outline-none rounded-full py-2.5 px-4" type="text" placeholder="Username" required onChange={handleChange} />
+          <input id="username" className="w-full border my-3 border-gray-500/30 outline-none rounded-full py-2.5 px-4" type="text" placeholder="Enter your username" required onChange={handleChange} />
           <input id="email" className="w-full border my-3 border-gray-500/30 outline-none rounded-full py-2.5 px-4" type="email" placeholder="Enter your email" required  onChange={handleChange}  />
-          <input id="password" className="w-full border mt-1 border-gray-500/30 outline-none rounded-full py-2.5 px-4" type="password" placeholder="Enter your password" required  onChange={handleChange}  />
+          <input id="password" className="w-full border mt-1 border-gray-500/30 outline-none rounded-full py-2.5 px-4" type="password" placeholder="Enter your password" required  onChange={handleChange} />
           <div className="text-right py-4">
-              <a className="text-blue-600 underline" href="#">Forgot Password</a>
+              <Link to='/forgetpassword' className="text-blue-600 underline">Forgot Password</Link>
           </div>
           <button disabled={loading} type="submit" className="w-full mb-3 bg-slate-700 hover:bg-slate-900 active:scale-95 transition py-2.5 rounded-full text-white">{loading ? 'Loading...':'Sign Up'}</button>
           <button type="button" className="w-full flex items-onClick(handel) center gap-3 justify-center bg-white border border-gray-500/30 py-2 rounded-full text-gray-800">
@@ -57,6 +57,8 @@ const Signup = () => {
         </button>
       </form> 
       <p className="text-center">Have an account? <Link to='/signin' className="text-blue-500 underline">Signup in</Link></p>
+      <p className='text-red-700 mt-5'>{error && 'Something went wrong!'}</p>
+      <p className='text-red-700 mt-5'>{data.success && 'Something went wrong!'}</p>
     </div>
   )
 }

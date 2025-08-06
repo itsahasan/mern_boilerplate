@@ -27,7 +27,7 @@ mongoose.connect(process.env.MONGO_URI).then(()=>{
 //All Routes
 app.use("/api/user", userRoutes)
 app.use("/api/auth", authRoutes)
-app.use("/api/forgetpassword",authRoutes)
+
 
 
 // Middlewares

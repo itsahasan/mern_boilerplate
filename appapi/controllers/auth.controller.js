@@ -7,6 +7,27 @@ import User from '../models/user.model.js'
 
 
 
+//check auth
+
+export const checkAuth = async (req, res) => {
+  const userid = req.userId
+	try {
+    const user = await User.findById(userid).select("-password");
+    if (!userid) {
+  return res.status(401).json({ success: false, message: "Unauthorized - missing user ID" });
+}
+		if (!user) {
+			return res.status(400).json({ success: false, message: "User not found" });
+		}
+
+		res.status(200).json({ success: true, user });
+	} catch (error) {
+		console.log("Error in checkAuth ", error);
+		res.status(400).json({ success: false, message: error.message });
+	}
+};
+
+
 //user signuo
 
 export const signup = async(req, res) => {

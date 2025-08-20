@@ -1,15 +1,16 @@
-import {MailtrapClient} from "mailtrap"
-import dotenv from 'dotenv'
+import nodemailer from 'nodemailer'
 
-  dotenv.config()
+export const emailClient = nodemailer.createTransport({
 
-const TOKEN = process.env.EmailToken;
-
-export const emailClient = new MailtrapClient({
-  token: TOKEN,
+ host: "sandbox.smtp.mailtrap.io",
+  port: 2525,
+  auth: {
+    user: "c0f8bb8ad0bdef",
+    pass: "85fd176345e6fb"
+  }
 });
 
 export const sender = {
-  email: "hello@demomailtrap.co",
+  email: "test@qtechit.dev",
   name: "Mern Project",
 };

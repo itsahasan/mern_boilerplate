@@ -5,7 +5,7 @@ export const sendVerificationEmail = async (email, verificationToken) => {
   const recipient = [{ email }]
 
   try {
-		const response = await emailClient.send({
+		const response = await emailClient.sendMail({
 			from: sender,
 			to: recipient,
 			subject: "Verify your email",
@@ -27,7 +27,7 @@ export const sendWelcomeEmail = async (email, name) => {
 	 const recipient = [{ email }]
 
 	 try {
-		const response = await emailClient.send({
+		const response = await emailClient.sendMail({
 			from: sender,
 			to: recipient,
 			subject: "Welcome to our team",
@@ -45,7 +45,7 @@ export const forgetpasswordEmail = async (email, resetUrl) => {
 	 const recipient = [{ email }]
 
 	 try {
-		const response = await emailClient.send({
+		const response = await emailClient.sendMail({
 			from: sender,
 			to: recipient,
 			subject: "Reset Your Password",
@@ -63,7 +63,7 @@ export const resetPasswordConfirm = async (email) => {
 	 const recipient = [{ email }]
 
 	 try {
-		const response = await emailClient.send({
+		const response = await emailClient.sendMail({
 			from: sender,
 			to: recipient,
 			subject: "Reset Your Password successfully",

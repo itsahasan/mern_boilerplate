@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import cookieParser from 'cookie-parser'
+import cors from "cors"
 
 //Routes import
 import userRoutes from './routes/user.route.js'
@@ -9,7 +10,13 @@ import authRoutes from './routes/auth.route.js'
 
 const app = express()
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser())
+
+app.use(cors({
+  origin: "http://localhost:5173", // your frontend origin
+  credentials: true                // allow cookies if you use them
+}));
 
 
 // Config env
@@ -29,7 +36,6 @@ mongoose.connect(process.env.MONGO_URI).then(()=>{
 //All Routes
 app.use("/api/user", userRoutes)
 app.use("/api/auth", authRoutes)
-
 
 
 // Middlewares

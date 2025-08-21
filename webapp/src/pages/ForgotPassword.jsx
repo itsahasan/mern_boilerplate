@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useRef  } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import Input from '../components/Input'
 
 const ForgotPassword = () => {
+  const emailRef = useRef()
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
@@ -42,7 +44,13 @@ const ForgotPassword = () => {
         <h1 className='text-2xl font-semibold mb-2 text-center text-gray-800'>Forgot Password ?</h1>
         <p className="text-center">Enter your email we will send you a reset password link to your email.</p>
         <form onSubmit={handleSubmit} className="bg-white text-gray-500 max-w mx-4 md:p-6 p-4 text-left text-sm rounded-xl shadow- [0px_0px_10px_0px] shadow-black/10">   
-            <input id="email" className="w-full border my-3 border-gray-500/30 outline-none rounded-full py-2.5 px-4" type="email" placeholder="Enter your email" required  onChange={handleChange}  />
+             <Input
+						type='email'
+            required
+						placeholder='Enter your email'
+						ref={emailRef}
+					/>
+
             <button disabled={loading} type="submit" className="w-full mb-3 bg-slate-700 hover:bg-slate-900 active:scale-95 transition py-2.5 rounded-full text-white">{loading ? 'Loading...':'Send Email'}</button>
         </form> 
         <p className="text-center">Have an account? <Link to='/signin' className="text-blue-500 underline">Signup in</Link></p>

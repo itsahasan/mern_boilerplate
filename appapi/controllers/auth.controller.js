@@ -33,6 +33,7 @@ export const checkAuth = async (req, res) => {
 export const signup = async(req, res) => {
   
   const {name, email, password} = req.body
+  
   try {
     if(!name || !email || !password ){
       return  res.status(400).json({success: false,message: "All fields are required"})
@@ -44,16 +45,16 @@ export const signup = async(req, res) => {
     const hashedPassword = bcryptjs.hashSync(password, 10)
     const verificationToken = generateVerificationCode()
     const user = new User({
-			email,
-			password: hashedPassword,
 			name,
+      email,
+			password: hashedPassword,
 			verificationToken,
 			verificationTokenExpiresAt: Date.now() + 24 * 60 * 60 * 1000, // 24 hours
 		});
     await user .save()
     //jwt
     genTokenSetCookies(res, user ._id)
-    //await sendVerificationEmail(user.email, verificationToken)
+    await sendVerificationEmail(user.email, verificationToken)
     res.status(200).json({
 		success: true,
 		message: "Email verified successfully",
@@ -72,13 +73,16 @@ export const signup = async(req, res) => {
 export const verifyemail = async (req, res) =>{
 
   const {code} = req.body
- 
+  console.log(code);
   
   try {
       const user = await User.findOne({
 			verificationToken: code,
 			verificationTokenExpiresAt: { $gt: Date.now() }
 		  });
+
+      console.log(user);
+      
     
       if(!user){
     
@@ -87,7 +91,7 @@ export const verifyemail = async (req, res) =>{
         message: "Invalid or expired verification code"
         })
       }
-      user.isVarifide = true
+      user.isVerified = true
       user.verificationToken = undefined
       user.verificationTokenExpiresAt = undefined
       

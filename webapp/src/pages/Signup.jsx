@@ -1,6 +1,8 @@
 import React, {  useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {useAuthStore} from '../store/authStore'
+import Input from '../components/Input'
+import PasswordStrengthMeter from '../components/PasswordStrengthMeter'
 
 
 
@@ -11,7 +13,7 @@ const Signup = () => {
   const emailRef = useRef()
   const passwordRef = useRef()
   const navigate = useNavigate();
-  const { signup, error, isLoading } = useAuthStore()
+  const { signup, error, isLoading} = useAuthStore()
 
   const handleSubmit = async (e) => {
   e.preventDefault();
@@ -20,14 +22,14 @@ const Signup = () => {
     const email = emailRef.current.value
     const password = passwordRef.current.value
  
-  try {
-    await signup(name, email, password)
-    navigate("/verify-email")
-    
-  } catch (error) {
-    console.log(error);
-    
-  }
+    try {
+      await signup(name, email, password)
+      navigate("/verify-email")
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
     
   }
 
@@ -36,9 +38,26 @@ const Signup = () => {
       <h1 className='text-2xl font-semibold mb-2 text-center text-gray-800'>Sign Up</h1>
       <form onSubmit={handleSubmit} className="bg-white text-gray-500 max-w mx-4 md:p-6 p-4 text-left text-sm rounded-xl shadow- [0px_0px_10px_0px] shadow-black/10">   
 
-          <input id="username" className="w-full border my-3 border-gray-500/30 outline-none rounded-full py-2.5 px-4" type="text" placeholder="Enter your username" required ref={nameRef} />
-          <input id="email" className="w-full border my-3 border-gray-500/30 outline-none rounded-full py-2.5 px-4" type="email" placeholder="Enter your email" required  ref={emailRef}  />
-          <input id="password" className="w-full border mt-1 border-gray-500/30 outline-none rounded-full py-2.5 px-4" type="password" placeholder="Enter your password" required  ref={passwordRef} />
+          <Input
+						type='text'
+            required
+						placeholder='Enter your username'
+						ref={nameRef}
+					/>
+          <Input
+						type='email'
+            required
+						placeholder='Enter your email'
+						ref={emailRef}
+					/>
+
+          <Input
+						type='password'
+            required
+						placeholder='Enter your password'
+						ref={passwordRef}
+					/>
+         
           <div className="text-right py-4">
               <Link to='/forgetpassword' className="text-blue-600 underline">Forgot Password</Link>
           </div>
@@ -48,6 +67,8 @@ const Signup = () => {
                 Log in with Google
         </button>
       </form> 
+     
+
       <p className="text-center">Have an account? <Link to='/signin' className="text-blue-500 underline">Signup in</Link></p>
       {error && <p className='text-red-700 mt-5'>{error}</p>}
     </div>

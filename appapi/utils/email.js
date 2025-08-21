@@ -2,16 +2,18 @@ import { VERIFICATION_EMAIL_TEMPLATE, PASSWORD_RESET_SUCCESS_TEMPLATE, PASSWORD_
 import {emailClient, sender} from '../config/mailtrap.conf.js'
 
 export const sendVerificationEmail = async (email, verificationToken) => {
-  const recipient = [{ email }]
-
+	
   try {
 		const response = await emailClient.sendMail({
-			from: sender,
-			to: recipient,
-			subject: "Verify your email",
-			html: VERIFICATION_EMAIL_TEMPLATE.replace("{verificationCode}", verificationToken),
-			category: "Email Verification",
-		});
+			from: {
+        address: sender.email,
+        name: sender.name
+      },
+      to: email,
+      subject: "Verify your email",
+      html: VERIFICATION_EMAIL_TEMPLATE.replace("{verificationCode}", verificationToken),
+      category: "Email Verification"
+    })
 
 		console.log("Email sent successfully", response);
 	} catch (error) {
@@ -19,17 +21,18 @@ export const sendVerificationEmail = async (email, verificationToken) => {
 		throw new Error(`Error sending verification email: ${error}`);
 	}
 
-
 }
 
 
 export const sendWelcomeEmail = async (email, name) => {
-	 const recipient = [{ email }]
 
 	 try {
 		const response = await emailClient.sendMail({
-			from: sender,
-			to: recipient,
+			from: {
+        address: sender.email,
+        name: sender.name
+      },
+			to: email,
 			subject: "Welcome to our team",
 			html: WELCOME_EMAIL.replace("{name}", name),
 			category: "Welcome",
@@ -42,12 +45,15 @@ export const sendWelcomeEmail = async (email, name) => {
 }
 
 export const forgetpasswordEmail = async (email, resetUrl) => {
-	 const recipient = [{ email }]
+
 
 	 try {
 		const response = await emailClient.sendMail({
-			from: sender,
-			to: recipient,
+			from: {
+        address: sender.email,
+        name: sender.name
+      },
+			to: email,
 			subject: "Reset Your Password",
 			html: PASSWORD_RESET_REQUEST_TEMPLATE.replace("{resetURL}", resetUrl ),
 			category: "Password reset request",
@@ -60,12 +66,15 @@ export const forgetpasswordEmail = async (email, resetUrl) => {
 }
 
 export const resetPasswordConfirm = async (email) => {
-	 const recipient = [{ email }]
+
 
 	 try {
 		const response = await emailClient.sendMail({
-			from: sender,
-			to: recipient,
+			from: {
+        address: sender.email,
+        name: sender.name
+      },
+			to: email,
 			subject: "Reset Your Password successfully",
 			html: PASSWORD_RESET_SUCCESS_TEMPLATE,
 			category: "Password reset successfully",

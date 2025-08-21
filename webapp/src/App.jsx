@@ -8,6 +8,8 @@ import Profile from './pages/Profile'
 import NoPage from './pages/NoPage'
 import Header from './components/Header'
 import Forgetpassword from './pages/ForgotPassword'
+import EmailVerification from './pages/EmailVerification'
+import { Toaster } from 'react-hot-toast';
 const App = () => {
   return (
     <>
@@ -15,12 +17,14 @@ const App = () => {
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/signin' element={<Signin />} />
+      <Route path='/verify-email' element={<EmailVerification />} />
       <Route path='/signup' element={<Signup />} />
       <Route path='/forgetpassword' element={<Forgetpassword />} />
       <Route path='/about' element={<About />} />
       <Route path='/profile' element={<Profile />} />
       <Route path="*" element={<NoPage />} />
     </Routes>
+    <Toaster />
     </>
   )
 }

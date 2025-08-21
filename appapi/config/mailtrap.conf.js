@@ -2,15 +2,16 @@ import nodemailer from 'nodemailer'
 
 export const emailClient = nodemailer.createTransport({
 
- host: "smtppro.zoho.eu",
-  port: 465,
+  host: process.env.HOST,
+  port: Number(process.env.PORTEMAIL),
+  secure: true,
   auth: {
-    user: "info@qtechit.dev",
-    pass: "Pj5#SteMIN!@#"
+    user: process.env.USER,
+    pass: process.env.PASSWORD,
   }
 });
 
 export const sender = {
-  email: "info@qtechit.dev",
+  email: process.env.USER,
   name: "Mern Project",
 };
